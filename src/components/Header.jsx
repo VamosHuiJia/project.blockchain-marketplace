@@ -10,7 +10,7 @@ const Header = () => {
         </div>
 
         {/* Danh mục */}
-        <ul className='md:flex-[0.5] md:flex text-white hidden list-none justify-around items-center flex-initial'>
+        <ul className='md:flex-[0.5] md:flex text-white hidden list-none justify-around items-center flex-initial font-bold'>
             <li className='mx-2 cursor-pointer'>Sản phẩm</li>
             <li className='mx-2 cursor-pointer'>Tác giả</li>
             <li className='mx-2 cursor-pointer'>Tính năng</li>

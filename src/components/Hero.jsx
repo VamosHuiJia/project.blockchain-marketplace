@@ -1,4 +1,5 @@
 import React from 'react'
+import Identicon from 'react-identicons' 
 import HeroArt from '../assets/HeroArt.jpg'
 
 const Hero = () => {
@@ -50,11 +51,16 @@ const Hero = () => {
             className="h-60 w-full object-cover"
           />
         <div className="flex justify-start items-center p-3">
-          
+          <Identicon className="h-10 w-10 object-contain rounded-full mr-3"
+          string={'0x21...786a'} 
+          size={50} />
           <div>
-            <p className="text-white font-semibold">
-              Kết nối tới tài khoản của bạn
-            </p>
+            <div>
+              <p className="text-white font-semibold">
+                Kết nối tới tài khoản của bạn
+              </p>
+            </div>
+            
             <small className="text-pink-800 font-bold">@you</small>
           </div>
         </div>
