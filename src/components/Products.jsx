@@ -31,12 +31,12 @@ const Card = ({ nft }) => {
       </h4>
 
       <p className='text-gray-400 text-sm my-1'>
-        Xin chao Viet Nam
+        Xin chào Việt Nam
       </p>
 
       <div className='flex justify-between items-center mt-3 text-white'>
         <div className="flex flex-col">
-          <small className='text-xs'>Gia tien</small>
+          <small className='text-xs'>Giá tiền</small>
           <p className='text-sm font-semibold'>0.55 ETH</p>
         </div>
 
