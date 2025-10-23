@@ -17,7 +17,7 @@ const Header = () => {
             <li className='mx-2 cursor-pointer'>Cộng đồng</li>
         </ul>
 
-        <button className='shadow-xl shadow-black text-white bg-[#e32970] hover:bg-[#bd255f] md:text-xl p-2 ml-4 rounded-full'>
+        <button className='shadow-xl shadow-black text-white bg-[#e32970] hover:bg-[#bd255f] md:text-xl p-2 ml-4 rounded-full px-4'>
             Ví của bạn
         </button>
 

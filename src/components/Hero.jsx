@@ -38,7 +38,7 @@ const Hero = () => {
               </div>
 
               <div>
-                <p className='text-white font-bold'>57</p>
+                <p className='text-white font-bold'>62</p>
                 <small className='text-gray-300'>tác giả</small>
               </div>
             </div>
