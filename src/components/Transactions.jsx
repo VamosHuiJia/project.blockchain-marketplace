@@ -5,7 +5,7 @@ import {MdOpenInNew} from 'react-icons/md'
 const Transactions = () => {
   return (
     <div className='bg-[#151c25]'>
-      <div className='w-4/5 py-10 mx-auto min-w-fit'>
+      <div className='w-4/5 py-10 mx-auto'>
         <h4 className='text-white text-3xl font-bold uppercase text-gradient'>
           Giao dịch gần nhất
         </h4>
@@ -38,11 +38,15 @@ const Transaction = ({ tx }) => (
         #{tx} Giao dịch đã thực hiện
       </h4>
       <small className='flex justify-start items-center'>
-        <span className='mr-1 min-w-fit'>Người nhận </span>
+        <span className='mr-1'>Người nhận </span>
         <a className='text-pink-500 mr-2' href='#' target='_blank'>0x31....037e</a>
         <MdOpenInNew />
       </small>
     </div>
+
+    <p className='text-sm font-medium'>
+      0.32 ETH
+    </p>
   </div>
 )
 
