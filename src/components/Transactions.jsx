@@ -10,9 +10,9 @@ const Transactions = () => {
           Giao dịch gần nhất
         </h4>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-4 lg:gap-3 py-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4 lg:gap-3 py-2.5">
           {Array(3).fill().map((nft, i) => (
-            <Transaction key={i} tx={+i} />
+            <Transaction key={i} tx={i + 1} />
           ))}
         </div>
 
@@ -28,13 +28,13 @@ const Transactions = () => {
 }
 
 const Transaction = ({ tx }) => (
-  <div className='flex justify-between items-center border border-pink-500 text-gray-400 w-full shadow-xl shadow-black rounded-md overflow-hidden bg-gray-800 my-2 p-3'>
+  <div className='flex justify-between min-w-fit items-center border border-pink-500 text-gray-400 w-full shadow-xl shadow-black rounded-md overflow-hidden bg-gray-800 my-2 p-3'>
     <div className='rounded-md shadow-sm shadow-pink-500 p-2 '>
       <BiTransfer />
     </div>
 
-    <div>
-      <h4 className='text-sm min-w-fit'>
+    <div className='px-3'>
+      <h4 className='text-sm'>
         #{tx} Giao dịch đã thực hiện
       </h4>
       <small className='flex justify-start items-center'>
