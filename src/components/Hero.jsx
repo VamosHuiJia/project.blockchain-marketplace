@@ -1,6 +1,7 @@
 import React from 'react'
 import Identicon from 'react-identicons' 
 import HeroArt from '../assets/HeroArt.jpg'
+import { setGlobalState } from '../store'
 
 const Hero = () => {
   return (
@@ -21,7 +22,8 @@ const Hero = () => {
             </div>
 
             <div>
-              <button className='shadow-xl shadow-black text-white bg-[#e32970] hover:bg-[#bd255f] font-semibold rounded-full cursor-pointer py-3 px-5 mt-3'>
+              <button className='shadow-xl shadow-black text-white bg-[#e32970] hover:bg-[#bd255f] font-semibold rounded-full cursor-pointer py-3 px-5 mt-3'
+                onClick={() => setGlobalState('modal', 'scale-100')}>
                 Tạo NFT
               </button>
             </div>
