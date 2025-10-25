@@ -15,6 +15,12 @@ const Products = () => {
           ))}
         </div>
 
+        <div className='text-center my-5'>
+          <button  className="shadow-lg shadow-black text-white text-sm font-bold bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-lg py-2 px-5">
+            Xem thêm
+          </button>
+        </div>
+        
       </div>
     </div>
   )

@@ -10,14 +10,14 @@ const Header = () => {
         </div>
 
         {/* Danh mục */}
-        <ul className='md:flex-[0.5] md:flex text-white hidden list-none justify-around items-center flex-initial font-bold'>
+        <ul className='md:flex-[0.5] md:flex text-white hidden list-none justify-around items-center flex-initial font-bold min-w-fit'>
             <li className='mx-2 cursor-pointer'>Sản phẩm</li>
             <li className='mx-2 cursor-pointer'>Tác giả</li>
             <li className='mx-2 cursor-pointer'>Tính năng</li>
             <li className='mx-2 cursor-pointer'>Cộng đồng</li>
         </ul>
 
-        <button className='shadow-xl shadow-black text-white bg-[#e32970] hover:bg-[#bd255f] md:text-xl ml-4 rounded-full font-semibold py-2 px-4'>
+        <button className='shadow-xl shadow-black text-white bg-[#e32970] hover:bg-[#bd255f] md:text-xl ml-4 rounded-full font-semibold py-2 px-4 min-w-fit'>
             Ví của bạn
         </button>
 
