@@ -3,7 +3,7 @@ import {FaTimes} from 'react-icons/fa'
 import HeroArt from '../assets/HeroArt.jpg'
 import { setGlobalState, useGlobalState } from '../store'
 
-const CreateNFT = () => {
+const CreateProduct = () => {
     const [modal] = useGlobalState('modal')
 
     const [title, setTitle] = useState('')
@@ -57,8 +57,8 @@ const CreateNFT = () => {
                 <div className='flex justify-center items-center rounded-xl mt-5'>
                     <div className='shrink-0 rounded-xl overflow-hidden h-20 w-20'>
                         <img 
-                            src={imgBase64} 
-                            alt='Hero'
+                            src={imgBase64 || HeroArt} 
+                            alt='NFT'
                             className='h-full w-full object-cover cursor-pointer'/>
                     </div>
                 </div>
@@ -126,4 +126,4 @@ const CreateNFT = () => {
   )
 }
 
-export default CreateNFT
+export default CreateProduct

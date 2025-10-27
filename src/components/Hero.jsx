@@ -24,7 +24,7 @@ const Hero = () => {
             <div>
               <button className='shadow-xl shadow-black text-white bg-[#e32970] hover:bg-[#bd255f] font-semibold rounded-full cursor-pointer py-3 px-5 mt-3'
                 onClick={() => setGlobalState('modal', 'scale-100')}>
-                Tạo NFT
+                Thêm sản phẩm
               </button>
             </div>
 

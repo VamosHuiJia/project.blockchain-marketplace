@@ -1,5 +1,6 @@
 import React from 'react'
 import HeroArt from '../assets/HeroArt.jpg'
+import { setGlobalState } from '../store'
 
 const Products = () => {
   return (
@@ -46,7 +47,9 @@ const Card = ({ nft }) => {
           <p className='text-sm font-semibold'>0.55 ETH</p>
         </div>
 
-        <button  className="shadow-lg shadow-black text-white text-sm bg-[#e32970] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-3">
+        {/*Xem chi tiết sản phẩm*/}
+        <button  className="shadow-lg shadow-black text-white text-sm bg-[#e32970] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-3"
+            onClick={() => setGlobalState('showModal', 'scale-100')}>
           Xem chi tiết
         </button>
       </div>
