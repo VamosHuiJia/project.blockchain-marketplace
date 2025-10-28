@@ -8,6 +8,11 @@ import { setGlobalState, useGlobalState } from '../store'
 const ProductDetail = () => {
     const [modal] = useGlobalState('showModal')
 
+    const onChangePrice = () => {
+        setGlobalState('showModal', 'scale-0')
+        setGlobalState('updateModal', 'scale-100')
+    }
+
     const handleSubmit = (e) => {
         console.log("Đang thêm ...")
     }
@@ -79,8 +84,9 @@ const ProductDetail = () => {
 
                     <button  className="flex justify-center items-center shadow-lg  
                         shadow-black text-white w-full text-md font-semibold my-5
-                        bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-5">
-                        Quay lại
+                        bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-5"
+                        onClick={onChangePrice}>
+                        Cập nhật giá
                     </button>
                 </div>
             </div>

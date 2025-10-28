@@ -5,6 +5,8 @@ import Hero from "./components/Hero"
 import Products from "./components/Products"
 import ProductDetail from "./components/ProductDetail"
 import Transactions from "./components/Transactions"
+import UpdateProduct from "./components/UpdateProduct"
+import LoadingPage from "./components/LoadingPage"
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
       <Footer />
       <CreateProduct />
       <ProductDetail />
+      <UpdateProduct />
+      <LoadingPage />
     </div>
   )
 }
