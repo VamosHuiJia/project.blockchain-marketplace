@@ -7,6 +7,7 @@ import ProductDetail from "./components/ProductDetail"
 import Transactions from "./components/Transactions"
 import UpdateProduct from "./components/UpdateProduct"
 import LoadingPage from "./components/LoadingPage"
+import Alert from "./components/Alert"
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <ProductDetail />
       <UpdateProduct />
       <LoadingPage />
+      <Alert />
     </div>
   )
 }
