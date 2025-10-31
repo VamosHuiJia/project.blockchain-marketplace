@@ -35,7 +35,7 @@ const connectWallet = async () => {
 // Khi đã kết nối thành công
 const isWalletConnected = async () => {
     try {
-        if (!ethereum) return reportError('Please install Metamask')
+        if (!ethereum) return reportError('Vui lòng cài đặt Metamask trước !')
         const accounts = await ethereum.request({ method: 'eth_accounts' })
 
         window.ethereum.on('chainChanged', (chainId) => {
@@ -51,7 +51,7 @@ const isWalletConnected = async () => {
             setGlobalState('connectedAccount', accounts[0].toLowerCase())
         } else {
             setGlobalState('connectedAccount', '')
-            reportError('Please connect wallet.')
+            reportError('Vui lòng kết nối tới ví của bạn.')
         }
     } catch (error) {
         reportError(error)
