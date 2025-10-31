@@ -8,8 +8,15 @@ import Transactions from "./components/Transactions"
 import UpdateProduct from "./components/UpdateProduct"
 import LoadingPage from "./components/LoadingPage"
 import Alert from "./components/Alert"
+import { useEffect } from "react"
+import { isWalletConnected } from "./Blockchain.services"
 
 const App = () => {
+  // Giữ trạng thái khi kết nối thành công
+  useEffect(async () => {
+    await isWalletConnected()
+  }, [])
+
   return (
     <div className="min-h-screen">
       <div className="gradient-bg-hero">
