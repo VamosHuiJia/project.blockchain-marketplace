@@ -42,4 +42,4 @@ const truncate = (text, startChars, endChars, maxLength) => {
   return text
 }
 
-export {useGlobalState, setGlobalState, getGlobalState, setLoadingMsg, setAlert}
+export {useGlobalState, setGlobalState, getGlobalState, setLoadingMsg, setAlert, truncate}

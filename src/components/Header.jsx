@@ -1,7 +1,11 @@
 import React from 'react'
 import Headerlogo from '../assets/H.Q.N_logo.png'
+import { connectWallet, connectedAccount } from '../Blockchain.services'
+import { useGlobalState, truncate } from '../store'
 
 const Header = () => {
+  const [connectedAccount] = useGlobalState('connectedAccount')
+
   return (
     <div className='w-4/5 flex justify-between md:justify-center items-center py-2 mx-auto'>
         {/* Logo */}
@@ -17,12 +21,24 @@ const Header = () => {
             <li className='mx-2 cursor-pointer'>Cộng đồng</li>
         </ul>
 
-        <button className='shadow-xl shadow-black text-white 
-          bg-[#e32970] hover:bg-[#bd255f] 
-          md:text-xl ml-4 rounded-full font-semibold py-2 px-4 min-w-fit'>
+        {connectedAccount ? (
+        <button
+          className="shadow-xl shadow-black text-white
+          bg-[#e32970] hover:bg-[#bd255f] md:text-xs p-2
+            rounded-full cursor-pointer"
+          >
+            {truncate(connectedAccount, 4, 4, 11)}
+          </button>
+        ) : (
+          <button
+            className="shadow-xl shadow-black text-white
+          bg-[#e32970] hover:bg-[#bd255f] md:text-xs p-2
+            rounded-full cursor-pointer"
+            onClick={connectWallet}
+          >
             Ví của bạn
-        </button>
-
+          </button>
+        )}
     </div>
   )
 }
