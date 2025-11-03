@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import Headerlogo from '../assets/H.Q.N_logo.png'
 import { connectWallet, connectedAccount } from '../Blockchain.services'
 import { useGlobalState, truncate } from '../store'
@@ -15,8 +17,12 @@ const Header = () => {
 
         {/* Danh mục */}
         <ul className='md:flex-[0.5] md:flex text-white hidden list-none justify-around items-center flex-initial font-bold min-w-fit'>
-            <li className='mx-2 cursor-pointer'>Sản phẩm</li>
-            <li className='mx-2 cursor-pointer'>Tác giả</li>
+            <li className='mx-2 cursor-pointer'>
+              <Link to="/products">Sản phẩm</Link>
+            </li>
+            <li className='mx-2 cursor-pointer'>
+              <Link to="/authors">Tác giả</Link>
+            </li>
             <li className='mx-2 cursor-pointer'>Tính năng</li>
             <li className='mx-2 cursor-pointer'>Cộng đồng</li>
         </ul>

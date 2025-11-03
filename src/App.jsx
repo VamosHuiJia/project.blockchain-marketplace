@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+
 import CreateProduct from "./components/CreateProduct"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
@@ -8,8 +10,11 @@ import Transactions from "./components/Transactions"
 import UpdateProduct from "./components/UpdateProduct"
 import LoadingPage from "./components/LoadingPage"
 import Alert from "./components/Alert"
+import Author from "./components/Author"
+
 import { useEffect } from "react"
 import { isWalletConnected } from "./Blockchain.services"
+
 
 const App = () => {
   // Giữ trạng thái khi kết nối thành công
@@ -23,14 +28,25 @@ const App = () => {
         <Header />
         <Hero />
       </div>
-      <Products />
-      <Transactions />
-      <Footer />
-      <CreateProduct />
-      <ProductDetail />
-      <UpdateProduct />
-      <LoadingPage />
-      <Alert />
+
+      <Routes>
+        <Route
+          path="/products"
+          element={
+            <>
+              <Products />
+              <Transactions />
+              <Footer />
+              <CreateProduct />
+              <ProductDetail />
+              <UpdateProduct />
+              <LoadingPage />
+              <Alert />
+            </>
+          }
+        />
+        <Route path="/authors" element={<Author />} />
+      </Routes>
     </div>
   )
 }
