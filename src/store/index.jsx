@@ -16,8 +16,7 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState ({
 
 /* Khai báo load trang */ 
 const setLoadingMsg = (msg) => {
-    const loadingPage = getGlobalState('loadingPage')
-    setGlobalState('loadingPage', {...loadingPage, msg})
+    setGlobalState('loadingPage', { show: true, msg})
 }
 
 /* Khai báo quá trình giao dịch */ 

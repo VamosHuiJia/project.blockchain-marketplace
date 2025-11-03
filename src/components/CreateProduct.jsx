@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import {FaTimes} from 'react-icons/fa'
 import HeroArt from '../assets/HeroArt.jpg'
-import { setGlobalState, useGlobalState } from '../store'
+import { setGlobalState, useGlobalState, setAlert, setLoadingMsg } from '../store'
 import { create } from 'ipfs-http-client'
+import { mintNFT } from '../Blockchain.services'
 
 const auth = 'Basic ' + Buffer.from(
     'e9260d322e934f4bade2f564871bb48d' + ':' + 'ktp6N2OcNqh7AwvZoqK/p8GnlEOSuJfwQ0vJaBS2CgF8gbk4+YWL/A'
@@ -28,14 +29,15 @@ const CreateProduct = () => {
 
 
     const handleSubmit = async(e) => {
-        e.preventdefault()
+        e.preventDefault()
 
         if(!title || !description || !price) return
         setGlobalState('modal', 'scale-0')
-        setGlobalState('loadingPage', {show: true, msg: 'Đang tải lên IPFS...'})
+        setLoadingMsg('Đang tải lên IPFS...')
 
         try {
-            const created = await client.add(fileUrl)
+            const created = await client.add(fileUrl) // Đọc data ảnh 
+
             const metadataURI = `https://ipfs.io/ipfs/${created.path}`
             const nft = { title, price, description, metadataURI }
 
@@ -43,9 +45,9 @@ const CreateProduct = () => {
             setFileUrl(metadataURI)
             await mintNFT(nft)
 
-            resetForm()
+            // resetForm()
             setAlert('Minting completed...', 'green')
-            window.location.reload()
+            // window.location.reload()
         } catch (error) {
             console.log('Error uploading file: ', error)
             setAlert('Minting failed...', 'red')
@@ -159,7 +161,10 @@ const CreateProduct = () => {
 
                 <button  className="flex justify-center items-center shadow-lg  
                 shadow-black text-white w-full text-md font-bold my-5
-                bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-5">
+                bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-5"
+                type="submit"
+                onClick={handleSubmit}
+                >
                     Thêm sản phẩm
                 </button>
             </form>
