@@ -81,4 +81,4 @@ const reportError = (error) => {
     throw new Error('Không có đối tượng Ethereum.')
 }
 
-export {connectWallet, isWalletConnected}
+export {connectWallet, isWalletConnected, mintNFT}

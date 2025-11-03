@@ -2,6 +2,20 @@ import React, { useState } from 'react'
 import {FaTimes} from 'react-icons/fa'
 import HeroArt from '../assets/HeroArt.jpg'
 import { setGlobalState, useGlobalState } from '../store'
+import { create } from 'ipfs-http-client'
+
+const auth = 'Basic ' + Buffer.from(
+    'e9260d322e934f4bade2f564871bb48d' + ':' + 'ktp6N2OcNqh7AwvZoqK/p8GnlEOSuJfwQ0vJaBS2CgF8gbk4+YWL/A'
+).toString('base64')
+
+const client = create({
+  host: 'ipfs.infura.io',
+  port: 5001,
+  protocol: 'https',
+  headers: {
+    authorization: auth,
+  },
+})
 
 const CreateProduct = () => {
     const [modal] = useGlobalState('modal')
@@ -13,13 +27,40 @@ const CreateProduct = () => {
     const [imgBase64, setImgBase64] = useState(null)
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventdefault()
 
         if(!title || !description || !price) return
-        console.log("Đang thêm ...")
+        setGlobalState('modal', 'scale-0')
+        setGlobalState('loadingPage', {show: true, msg: 'Đang tải lên IPFS...'})
 
-        resetForm()
+        try {
+            const created = await client.add(fileUrl)
+            const metadataURI = `https://ipfs.io/ipfs/${created.path}`
+            const nft = { title, price, description, metadataURI }
+
+            setLoadingMsg('Intializing transaction...')
+            setFileUrl(metadataURI)
+            await mintNFT(nft)
+
+            resetForm()
+            setAlert('Minting completed...', 'green')
+            window.location.reload()
+        } catch (error) {
+            console.log('Error uploading file: ', error)
+            setAlert('Minting failed...', 'red')
+        }
+    }
+
+    const changeImage = async (e) => {
+        const reader = new FileReader()
+        if (e.target.files[0]) reader.readAsDataURL(e.target.files[0])
+
+        reader.onload = (readerEvent) => {
+        const file = readerEvent.target.result
+        setImgBase64(file)
+        setFileUrl(e.target.files[0])
+        }
     }
 
     const closeModal = () => {
@@ -72,6 +113,7 @@ const CreateProduct = () => {
                             hover:file:bg-[#1d2631] hover:file:text-white focus:outline-none hover:file:cursor-pointer cursor-pointer focus:ring-0 '
                             type="file"
                             accept='image/png, image/gif, image/jpg, image/jpeg, image/webp' 
+                            onChange={changeImage}
                             required />
                     </label>
                 </div>

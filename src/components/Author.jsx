@@ -4,7 +4,7 @@ import { setGlobalState } from '../store'
 
 const Author = () => {
   return (
-    <div className='bg-[#151c25] gradient-bg-Author'>
+    <div className='gradient-bg-products'>
       <div className='w-4/5 py-10 mx-auto'>
         <h4 className='text-white text-3xl font-bold uppercase text-gradient'>
           Các tác giả nổi tiếng

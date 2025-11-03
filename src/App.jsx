@@ -26,14 +26,14 @@ const App = () => {
     <div className="min-h-screen">
       <div className="gradient-bg-hero">
         <Header />
-        <Hero />
-      </div>
 
+      </div>
       <Routes>
         <Route
           path="/products"
           element={
             <>
+              <Hero />
               <Products />
               <Transactions />
               <Footer />

@@ -5,7 +5,8 @@ import { setGlobalState } from '../store'
 
 const Hero = () => {
   return (
-    <div className='flex flex-col md:flex-row w-4/5 justify-between items-center mx-auto py-10'>
+    <div className='bg-[#151c25]'>
+      <div className='flex flex-col md:flex-row w-4/5 justify-between items-center mx-auto py-10'>
         <div className='md:w-3/6 w-full'>
             <div>
               <h1 className='text-white text-4xl font-bold'>
@@ -68,6 +69,7 @@ const Hero = () => {
         </div>
       </div>
 
+      </div>
     </div>
   )
 }
