@@ -6,7 +6,7 @@ import { create } from 'ipfs-http-client'
 import { mintNFT } from '../Blockchain.services'
 
 const auth = 'Basic ' + Buffer.from(
-    'e9260d322e934f4bade2f564871bb48d' + ':' + 'ktp6N2OcNqh7AwvZoqK/p8GnlEOSuJfwQ0vJaBS2CgF8gbk4+YWL/A'
+    '2a4f6e4a9d7f4a608bd8eff5f16dfe17' + ':' + '+GiiZjhs4xo53cFsKF92rLLq8bFV0WR5P/z+AYdYj1gcGtTVYuWoKg'
 ).toString('base64')
 
 const client = create({
