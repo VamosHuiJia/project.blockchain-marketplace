@@ -18,9 +18,9 @@ import { isWalletConnected } from "./Blockchain.services"
 
 const App = () => {
   // Giữ trạng thái khi kết nối thành công
-  // useEffect(async () => {
-  //   await isWalletConnected()
-  // }, [])
+  useEffect(async () => {
+    await isWalletConnected()
+  }, [])
 
   return (
     <div className="min-h-screen">
