@@ -7,7 +7,7 @@ window.web3 = new Web3(ethereum)
 window.web3 = new Web3(window.web3.currentProvider)
 
 // Kết nối tài khoản
-const getEtheriumContract = async () => {
+const getEthereumContract = async () => {
   const web3 = window.web3
   const networkId = await web3.eth.net.getId()
   const networkData = abi.networks[networkId]
@@ -60,9 +60,9 @@ const isWalletConnected = async () => {
 
 const getAllNFTs = async () => {
   try {
-    if (!ethereum) return reportError('Please install Metamask')
+    if (!ethereum) return reportError('Vui lòng cài đặt Metamask trước')
 
-    const contract = await getEtheriumContract()
+    const contract = await getEthereumContract()
     const nfts = await contract.methods.getAllNFTs().call()
     const transactions = await contract.methods.getAllTransactions().call()
 
