@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {FaTimes} from 'react-icons/fa'
+
 import HeroArt from '../assets/HeroArt.jpg'
 import { setGlobalState, useGlobalState, setAlert, setLoadingMsg } from '../store'
 import { create } from 'ipfs-http-client'

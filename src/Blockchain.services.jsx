@@ -90,7 +90,7 @@ const getAllNFTs = async () => {
 const mintNFT = async ({ title, description, metadataURI, price }) => {
   try {
     price = window.web3.utils.toWei(price.toString(), 'ether')
-    const contract = await getEtheriumContract()
+    const contract = await getEthereumContract()
     const account = getGlobalState('connectedAccount')
     const mintPrice = window.web3.utils.toWei('0.01', 'ether')
 
@@ -104,10 +104,38 @@ const mintNFT = async ({ title, description, metadataURI, price }) => {
   }
 }
 
+const buyNFT = async ({ id, cost }) => {
+  try {
+    cost = window.web3.utils.toWei(cost.toString(), 'ether')
+    const contract = await getEthereumContract()
+    const buyer = getGlobalState('connectedAccount')
+
+    await contract.methods
+      .payToBuy(Number(id))
+      .send({ from: buyer, value: cost })
+
+    return true
+  } catch (error) {
+    reportError(error)
+  }
+}
+
+const updateNFT = async ({ id, cost }) => {
+  try {
+    cost = window.web3.utils.toWei(cost.toString(), 'ether')
+    const contract = await getEthereumContract()
+    const buyer = getGlobalState('connectedAccount')
+
+    await contract.methods.changePrice(Number(id), cost).send({ from: buyer })
+  } catch (error) {
+    reportError(error)
+  }
+}
+
 // Báo cáo lỗi
 const reportError = (error) => {
     setAlert(JSON.stringify(error), 'red')
     throw new Error('Không có đối tượng Ethereum.')
 }
 
-export {connectWallet, isWalletConnected, mintNFT, getAllNFTs}
+export {connectWallet, isWalletConnected, mintNFT, getAllNFTs, updateNFT, buyNFT}

@@ -1,18 +1,34 @@
 import React, { useState } from 'react'
 import {FaTimes} from 'react-icons/fa'
+
 import HeroArt from '../assets/HeroArt.jpg'
-import { setGlobalState, useGlobalState } from '../store'
+import { setGlobalState, useGlobalState, setLoadingMsg, setAlert } from '../store'
+import { updateNFT, buyNFT } from '../Blockchain.services'
 
 const UpdateProduct = () => {
     const [modal] = useGlobalState('updateModal')
+    const [nft] = useGlobalState('nft')
+    const [price, setPrice] = useState(nft?.cost)
 
-    const [price, setPrice] = useState('')
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventdefault()
 
-        if(!price) return
-        console.log("Đang cập nhật ...")
+        if (!price || price <= 0) return
+
+        setGlobalState('modal', 'scale-0')
+        setGlobalState('loadingPage', { show: true, msg: 'Đang cập nhật thay đổi ...' })
+
+        try {
+            setLoadingMsg('Đang cập nhật giá ...')
+            setGlobalState('updateModal', 'scale-0')
+
+            await updateNFT({ id: nft.id, cost: price })
+            setAlert('Đã cập nhật giá', 'green')
+            window.location.reload()
+        } catch (error) {
+            console.log('Đã xảy ra lỗi ', error)
+            setAlert('Cập nhật không thành công', 'red')
+        }
     }
 
     const closeModal = () => {
