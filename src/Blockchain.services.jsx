@@ -58,6 +58,20 @@ const isWalletConnected = async () => {
     }
 }
 
+const structuredNfts = (nfts) => {
+  return nfts
+    .map((nft) => ({
+      id: Number(nft.id),
+      owner: nft.owner.toLowerCase(),
+      cost: window.web3.utils.fromWei(nft.cost),
+      title: nft.title,
+      description: nft.description,
+      metadataURI: nft.metadataURI,
+      timestamp: nft.timestamp,
+    }))
+    .reverse()
+}
+
 const getAllNFTs = async () => {
   try {
     if (!ethereum) return reportError('Vui lòng cài đặt Metamask trước')
@@ -96,4 +110,4 @@ const reportError = (error) => {
     throw new Error('Không có đối tượng Ethereum.')
 }
 
-export {connectWallet, isWalletConnected, mintNFT}
+export {connectWallet, isWalletConnected, mintNFT, getAllNFTs}

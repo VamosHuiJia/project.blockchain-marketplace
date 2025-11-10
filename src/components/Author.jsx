@@ -11,7 +11,7 @@ const Author = () => {
         </h4>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-4 lg:gap-3 py-2.5">
-          {Array(4).fill().map((nft, i) => (
+          {Array(7).fill().map((nft, i) => (
             <Card key={i} nft={i + 1} /> 
           ))}
         </div>

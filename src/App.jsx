@@ -20,13 +20,13 @@ const App = () => {
   // Giữ trạng thái khi kết nối thành công
   useEffect(async () => {
     await isWalletConnected()
+    // await getAllNFTs()
   }, [])
 
   return (
     <div className="min-h-screen">
       <div className="gradient-bg-hero">
         <Header />
-
       </div>
       <Routes>
         <Route
@@ -36,7 +36,7 @@ const App = () => {
               <Hero />
               <Products />
               <Transactions />
-              <Footer />
+              
               <CreateProduct />
               <ProductDetail />
               <UpdateProduct />
@@ -47,6 +47,7 @@ const App = () => {
         />
         <Route path="/authors" element={<Author />} />
       </Routes>
+      <Footer />
     </div>
   )
 }

@@ -1,8 +1,10 @@
 import React from 'react'
 import HeroArt from '../assets/HeroArt.jpg'
-import { setGlobalState } from '../store'
+import { setGlobalState, useGlobalState } from '../store'
 
 const Products = () => {
+  const [nfts] = useGlobalState('nfts')
+
   return (
     <div className='bg-[#151c25] gradient-bg-products'>
       <div className='w-4/5 py-10 mx-auto'>
@@ -11,8 +13,8 @@ const Products = () => {
         </h4>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-4 lg:gap-3 py-2.5">
-          {Array(4).fill().map((nft, i) => (
-            <Card key={i} nft={i + 1} /> 
+          {nfts.map((nft, i) => (
+            <Card key={i} nft={nft} /> 
           ))}
         </div>
 
@@ -28,28 +30,34 @@ const Products = () => {
 }
 
 const Card = ({ nft }) => {
+  const setNFT = () => {
+    setGlobalState('nft', nft)
+    setGlobalState('showModal', 'scale-100')
+  }
+  
   return (
     <div className='w-full shadow-xl shadow-black rounded-md overflow-hidden bg-gray-800 my-2 p-3'>
       <img className='h-60 w-full object-cover shadow-lg shadow-black rounded-lg mb-3'
-        src={HeroArt} alt="NFT Image" />
+        src={nft.metadataURI} 
+        alt={nft.title} />
 
       <h4 className='text-white font-semibold'>
-        NFT #{nft}
+        {nft.title}
       </h4>
 
       <p className='text-gray-400 text-sm my-1'>
-        Xin chào Việt Nam
+        {nft.description}
       </p>
 
       <div className='flex justify-between items-center mt-3 text-white'>
         <div className="flex flex-col">
           <small className='text-xs'>Giá tiền</small>
-          <p className='text-sm font-semibold'>0.55 ETH</p>
+          <p className='text-sm font-semibold'>{nft.cost} ETH</p>
         </div>
 
         {/*Xem chi tiết sản phẩm*/}
         <button  className="shadow-lg shadow-black text-white text-sm bg-[#e32970] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-3"
-            onClick={() => setGlobalState('showModal', 'scale-100')}>
+            onClick={setNFT}>
           Xem chi tiết
         </button>
       </div>
