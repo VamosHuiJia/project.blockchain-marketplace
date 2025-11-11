@@ -13,14 +13,14 @@ import Alert from "./components/Alert"
 import Author from "./components/Author"
 
 import { useEffect } from "react"
-import { isWalletConnected } from "./Blockchain.services"
+import { isWalletConnected, getAllNFTs } from "./Blockchain.services"
 
 
 const App = () => {
   // Giữ trạng thái khi kết nối thành công
   useEffect(async () => {
     await isWalletConnected()
-    // await getAllNFTs()
+    await getAllNFTs()
   }, [])
 
   return (

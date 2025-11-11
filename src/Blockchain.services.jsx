@@ -1,69 +1,133 @@
+// Blockchain.services.jsx (FIX MetaMask no longer injects window.web3)
 import Web3 from 'web3'
 import { setGlobalState, setAlert, getGlobalState } from './store'
 import abi from './abis/hqnNFT.json'
 
-const { ethereum } = window
-window.web3 = new Web3(ethereum)
-window.web3 = new Web3(window.web3.currentProvider)
+let web3 = null // singleton
+let listenersBound = false
 
-// Kết nối tài khoản
-const getEthereumContract = async () => {
-  const web3 = window.web3
-  const networkId = await web3.eth.net.getId()
-  const networkData = abi.networks[networkId]
+// Tránh đổi tài khoản bị "dẫm lên nhau"
+const bindWalletListenersOnce = () => {
+  if (!window.ethereum || listenersBound) return
+  listenersBound = true
 
-  if (networkData) {
-    const contract = new web3.eth.Contract(abi.abi, networkData.address)
-    return contract
-  } else {
-    return null
+  window.ethereum.on('chainChanged', () => {
+    // chuyển chain thì reload là dễ nhất
+    window.location.reload()
+  })
+
+  window.ethereum.on('accountsChanged', async (newAccounts) => {
+    const acc = (newAccounts && newAccounts[0]) ? newAccounts[0].toLowerCase() : ''
+    setGlobalState('connectedAccount', acc)
+    // Sau khi đổi tài khoản, refresh danh sách; bọc try/catch để không văng lỗi
+    try {
+      await getAllNFTs()
+    } catch (e) {
+      // nuốt lỗi để UI không crash
+      console.warn('getAllNFTs failed after accountsChanged:', e?.message || e)
+    }
+  })
+}
+
+
+// 1) Buộc MetaMask sang Ganache 8545 (chainId 1337 = 0x539)
+
+const ensureLocalChain = async () => {
+  if (!window.ethereum) throw new Error('Vui lòng cài MetaMask.')
+  const targetChainIdHex = '0x539' // 1337 (Ganache)
+  try {
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: targetChainIdHex }],
+    })
+  } catch (e) {
+    if (e.code === 4902) {
+      await window.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [{
+          chainId: targetChainIdHex,
+          chainName: 'Ganache 8545',
+          rpcUrls: ['http://localhost:8545'],
+          nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+        }],
+      })
+    } else {
+      throw e
+    }
   }
 }
 
-// Kiểm tra kết nối tới ví ETH
+// 2) Khởi tạo Web3 đúng cách (không dùng window.web3)
+const ensureWeb3 = async () => {
+  if (!window.ethereum) reportError('Vui lòng cài đặt MetaMask hoặc cung cấp provider.')
+  // đảm bảo đúng chain trước
+  const cur = await window.ethereum.request({ method: 'eth_chainId' })
+  if (cur !== '0x539') await ensureLocalChain()
+
+  if (!web3) web3 = new Web3(window.ethereum)
+  return web3
+}
+
+// 3) Lấy instance contract theo networkId (Ganache thường là 5777)
+const getEthereumContract = async () => {
+  const w3 = await ensureWeb3()
+  const networkId = await w3.eth.net.getId()
+
+  let contractAddress = abi.networks?.[networkId]?.address
+  if (!contractAddress && import.meta?.env?.VITE_CONTRACT_ADDRESS) {
+    contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
+  }
+  if (!contractAddress) {
+    reportError(`Không tìm thấy địa chỉ contract cho networkId=${networkId}.
+• Hãy chạy: truffle migrate --reset --network development
+• Kiểm tra src/abis/hqnNFT.json > networks[${networkId}].address
+• Hoặc đặt VITE_CONTRACT_ADDRESS trong .env`)
+  }
+  return new w3.eth.Contract(abi.abi, contractAddress)
+}
+
+// 4) Kết nối ví
 const connectWallet = async () => {
-    try {
-        if(!ethereum) return alert ('Vui lòng cài đặt Metamask trước') 
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts'})
-        setGlobalState('connectedAccount', accounts[0].toLowerCase())
-    }
-    catch (error) {
-        reportError[error]
-    }
+  try {
+    await ensureLocalChain()
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+    setGlobalState('connectedAccount', accounts[0].toLowerCase())
+
+    await ensureWeb3()
+    bindWalletListenersOnce()
+    return accounts[0]
+  } catch (error) {
+    reportError(error)
+  }
 }
 
-// Khi đã kết nối thành công
+// 5) Kiểm tra ví đã kết nối chưa
 const isWalletConnected = async () => {
-    try {
-        if (!ethereum) return reportError('Vui lòng cài đặt Metamask trước !')
-        const accounts = await ethereum.request({ method: 'eth_accounts' })
+  try {
+    if (!window.ethereum) return reportError('Vui lòng cài đặt MetaMask trước.')
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' })
 
-        window.ethereum.on('chainChanged', (chainId) => {
-            window.location.reload()
-        })
+    bindWalletListenersOnce()
 
-        window.ethereum.on('accountsChanged', async () => {
-            setGlobalState('connectedAccount', accounts[0].toLowerCase())
-            await isWallectConnected()
-        })
-
-        if (accounts.length) {
-            setGlobalState('connectedAccount', accounts[0].toLowerCase())
-        } else {
-            setGlobalState('connectedAccount', '')
-            reportError('Vui lòng kết nối tới ví của bạn.')
-        }
-    } catch (error) {
-        reportError(error)
+    if (accounts.length) {
+      setGlobalState('connectedAccount', accounts[0].toLowerCase())
+      await ensureWeb3()
+    } else {
+      setGlobalState('connectedAccount', '')
+      setAlert('Vui lòng kết nối tới ví của bạn.', 'red')
     }
+  } catch (error) {
+    reportError(error)
+  }
 }
 
+// 6) Chuẩn hóa dữ liệu
 const structuredNfts = (nfts) => {
   return nfts
     .map((nft) => ({
       id: Number(nft.id),
       owner: nft.owner.toLowerCase(),
-      cost: window.web3.utils.fromWei(nft.cost),
+      cost: Web3.utils.fromWei(nft.cost),
       title: nft.title,
       description: nft.description,
       metadataURI: nft.metadataURI,
@@ -72,30 +136,42 @@ const structuredNfts = (nfts) => {
     .reverse()
 }
 
+// 7) API
 const getAllNFTs = async () => {
   try {
-    if (!ethereum) return reportError('Vui lòng cài đặt Metamask trước')
-
+    await ensureWeb3()
     const contract = await getEthereumContract()
     const nfts = await contract.methods.getAllNFTs().call()
     const transactions = await contract.methods.getAllTransactions().call()
-
     setGlobalState('nfts', structuredNfts(nfts))
     setGlobalState('transactions', structuredNfts(transactions))
+    return true
+
   } catch (error) {
-    reportError(error)
+    console.warn('getAllNFTs error:', error?.message || error)
+    setGlobalState('nfts', [])
+    setGlobalState('transactions', [])
+    return false
   }
 }
 
 const mintNFT = async ({ title, description, metadataURI, price }) => {
   try {
-    price = window.web3.utils.toWei(price.toString(), 'ether')
-    const contract = await getEthereumContract()
-    const account = getGlobalState('connectedAccount')
-    const mintPrice = window.web3.utils.toWei('0.01', 'ether')
+    // connect trước, rồi mới lấy web3
+    let account = getGlobalState('connectedAccount')
+    if (!account) {
+      const acc = await connectWallet()
+      account = acc?.toLowerCase()
+      setGlobalState('connectedAccount', account || '')
+    }
+    const w3 = await ensureWeb3()
+
+    const contract  = await getEthereumContract()
+    const mintPrice = Web3.utils.toWei('0.01', 'ether')
+    const priceWei  = Web3.utils.toWei(price.toString(), 'ether')
 
     await contract.methods
-      .payToMint(title, description, metadataURI, price)
+      .payToMint(title, description, metadataURI, priceWei)
       .send({ from: account, value: mintPrice })
 
     return true
@@ -106,14 +182,18 @@ const mintNFT = async ({ title, description, metadataURI, price }) => {
 
 const buyNFT = async ({ id, cost }) => {
   try {
-    cost = window.web3.utils.toWei(cost.toString(), 'ether')
+    let buyer = getGlobalState('connectedAccount')
+    if (!buyer) {
+      const acc = await connectWallet()
+      buyer = acc?.toLowerCase()
+      setGlobalState('connectedAccount', buyer || '')
+    }
+
+    await ensureWeb3()
     const contract = await getEthereumContract()
-    const buyer = getGlobalState('connectedAccount')
+    const costWei = Web3.utils.toWei(cost.toString(), 'ether')
 
-    await contract.methods
-      .payToBuy(Number(id))
-      .send({ from: buyer, value: cost })
-
+    await contract.methods.payToBuy(Number(id)).send({ from: buyer, value: costWei })
     return true
   } catch (error) {
     reportError(error)
@@ -122,20 +202,22 @@ const buyNFT = async ({ id, cost }) => {
 
 const updateNFT = async ({ id, cost }) => {
   try {
-    cost = window.web3.utils.toWei(cost.toString(), 'ether')
+    await ensureWeb3()
     const contract = await getEthereumContract()
-    const buyer = getGlobalState('connectedAccount')
+    const owner = getGlobalState('connectedAccount')
+    const costWei = Web3.utils.toWei(cost.toString(), 'ether')
 
-    await contract.methods.changePrice(Number(id), cost).send({ from: buyer })
+    await contract.methods.changePrice(Number(id), costWei).send({ from: owner })
   } catch (error) {
     reportError(error)
   }
 }
 
-// Báo cáo lỗi
+// 8) Báo lỗi giữ nguyên thông điệp thật
 const reportError = (error) => {
-    setAlert(JSON.stringify(error), 'red')
-    throw new Error('Không có đối tượng Ethereum.')
+  const message = typeof error === 'string' ? error : (error?.message || JSON.stringify(error))
+  setAlert(message, 'red')
+  throw new Error(message)
 }
 
-export {connectWallet, isWalletConnected, mintNFT, getAllNFTs, updateNFT, buyNFT}
+export { connectWallet, isWalletConnected, mintNFT, getAllNFTs, updateNFT, buyNFT }

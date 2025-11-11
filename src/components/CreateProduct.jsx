@@ -4,18 +4,14 @@ import {FaTimes} from 'react-icons/fa'
 import HeroArt from '../assets/HeroArt.jpg'
 import { setGlobalState, useGlobalState, setAlert, setLoadingMsg } from '../store'
 import { create } from 'ipfs-http-client'
-import { mintNFT } from '../Blockchain.services'
+import { mintNFT, getAllNFTs  } from '../Blockchain.services'
 
-const auth = 'Basic ' + Buffer.from(
-    '2a4f6e4a9d7f4a608bd8eff5f16dfe17' + ':' + '+GiiZjhs4xo53cFsKF92rLLq8bFV0WR5P/z+AYdYj1gcGtTVYuWoKg'
-).toString('base64')
+const FILEBASE_RPC_API_KEY = 'RUJFM0VFRDg5RkI4MDlGODBEM0I6U0lyVEVpTEttOXRQMXA4amU1UFJPb1R3ZHVXUHVuREhtTFF3eFhleDpuZnQtbWFya2V0LWJ1Y2tldA=='
 
 const client = create({
-  host: 'ipfs.infura.io',
-  port: '5001',
-  protocol: 'https',
+  url: 'https://rpc.filebase.io/api/v0',
   headers: {
-    authorization: auth,
+    Authorization: `Bearer ${FILEBASE_RPC_API_KEY}`,
   },
 })
 
@@ -37,15 +33,16 @@ const CreateProduct = () => {
         setLoadingMsg('Đang tải lên IPFS...')
 
         try {
-            const created = await client.add(fileUrl) // Đọc data ảnh 
+            const created = await client.add(fileUrl, { cidVersion: 1 })
+            const cid = (created.cid && created.cid.toString()) || created.path
+            const metadataURI = `https://ipfs.filebase.io/ipfs/${cid}`
 
-            const metadataURI = `https://ipfs.io/ipfs/${created.path}`
             const nft = { title, price, description, metadataURI }
-
             setLoadingMsg('Intializing transaction...')
             setFileUrl(metadataURI)
+            
             await mintNFT(nft)
-
+            await getAllNFTs() 
             // resetForm()
             setAlert('Minting completed...', 'green')
             // window.location.reload()

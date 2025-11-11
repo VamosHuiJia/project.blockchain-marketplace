@@ -17,6 +17,10 @@ const ProductDetail = () => {
     }
 
     const handleNFTPurchase = async () => {
+        if (connectedAccount?.toLowerCase() === nft?.owner?.toLowerCase()) {
+            setAlert('Bạn là chủ sở hữu NFT này — không thể tự mua.', 'red')
+            return
+        }
         setGlobalState('showModal', 'scale-0')
         setGlobalState('loadingPage', {
             show: true,
@@ -96,7 +100,7 @@ const ProductDetail = () => {
                 </div>
 
                 <div className='flex justify-between items-center space-x-2'>
-                    {connectedAccount == nft?.owner ? (
+                    {connectedAccount?.toLowerCase() !== nft?.owner?.toLowerCase() ? (
                         <button  className="flex justify-center items-center shadow-lg
                             shadow-black text-white w-full text-md font-semibold my-5
                             bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-5"
