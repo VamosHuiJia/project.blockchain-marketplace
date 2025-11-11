@@ -1,9 +1,11 @@
 import React from 'react'
 import Identicon from 'react-identicons' 
 import HeroArt from '../assets/HeroArt.jpg'
-import { setGlobalState } from '../store'
+import { setGlobalState, useGlobalState, truncate } from '../store'
 
 const Hero = () => {
+  const [connectedAccount] = useGlobalState('connectedAccount')
+
   return (
     <div className='bg-[#151c25]'>
       <div className='flex flex-col md:flex-row w-4/5 justify-between items-center mx-auto py-10'>
@@ -55,15 +57,14 @@ const Hero = () => {
           />
         <div className="flex justify-start items-center p-3">
           <Identicon className="h-10 w-10 object-contain rounded-full mr-3"
-          string={'0x21...786a'} 
+          string={connectedAccount} 
           size={50} />
           <div>
-            <div>
-              <p className="text-white font-semibold">
-                Kết nối tới tài khoản của bạn
-              </p>
-            </div>
-            
+            <p className="text-white font-semibold">
+              {connectedAccount
+                ? truncate(connectedAccount, 4, 4, 11)
+                : 'Connect Your Wallet'}
+            </p>
             <small className="text-pink-800 font-bold">@you</small>
           </div>
         </div>
