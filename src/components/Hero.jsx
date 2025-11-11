@@ -38,12 +38,12 @@ const Hero = () => {
               </div>
 
               <div>
-                <p className='text-white font-bold'>400</p>
+                <p className='text-white font-bold'>12</p>
                 <small className='text-gray-300'>tác phẩm</small>
               </div>
 
               <div>
-                <p className='text-white font-bold'>62</p>
+                <p className='text-white font-bold'>8</p>
                 <small className='text-gray-300'>tác giả</small>
               </div>
             </div>

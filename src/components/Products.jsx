@@ -54,7 +54,8 @@ const Card = ({ nft }) => {
   }
   
   return (
-    <div className='w-full shadow-xl shadow-black rounded-md overflow-hidden bg-gray-800 my-2 p-3'>
+    <div className='w-full shadow-xl shadow-black rounded-md overflow-hidden bg-gray-800 my-2 p-3
+                  hover:scale-105 transition-transform duration-300'>
       <img className='h-60 w-full object-cover shadow-lg shadow-black rounded-lg mb-3'
         src={nft.metadataURI} 
         alt={nft.title} />
