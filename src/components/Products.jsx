@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 
 import HeroArt from '../assets/HeroArt.jpg'
-import { setGlobalState, useGlobalState } from '../store'
+import { setGlobalState, useGlobalState, truncate } from '../store'
 
 const Products = () => {
   const [nfts] = useGlobalState('nfts')
@@ -65,7 +65,7 @@ const Card = ({ nft }) => {
       </h4>
 
       <p className='text-gray-400 text-sm my-1'>
-        {nft.description}
+        {truncate(nft.description, 120, 0, 123)}
       </p>
 
       <div className='flex justify-between items-center mt-3 text-white'>
