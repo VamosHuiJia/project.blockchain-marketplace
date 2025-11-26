@@ -72,10 +72,7 @@ const getEthereumContract = async () => {
     contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
   }
   if (!contractAddress) {
-    reportError(`Không tìm thấy địa chỉ contract cho networkId=${networkId}.
-• Hãy chạy: truffle migrate --reset --network development
-• Kiểm tra src/abis/hqnNFT.json > networks[${networkId}].address
-• Hoặc đặt VITE_CONTRACT_ADDRESS trong .env`)
+    reportError(`Không tìm thấy địa chỉ contract cho networkId=${networkId}`)
   }
   return new w3.eth.Contract(abi.abi, contractAddress)
 }

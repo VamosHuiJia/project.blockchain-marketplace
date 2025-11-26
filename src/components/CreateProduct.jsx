@@ -43,12 +43,12 @@ const CreateProduct = () => {
             
             await mintNFT(nft)
             await getAllNFTs() 
-            // resetForm()
-            setAlert('Minting completed...', 'green')
+            resetForm()
+            setAlert('Đăng sản phẩm thành công...', 'green')
             // window.location.reload()
         } catch (error) {
             console.log('Error uploading file: ', error)
-            setAlert('Minting failed...', 'red')
+            setAlert('Đăng sản phẩm thất bại...', 'red')
         }
     }
 

@@ -32555,10 +32555,16 @@
       "links": {},
       "address": "0xAa68a5f2739e013C4139DE0F1B78D53B8491694E",
       "transactionHash": "0x92bb6013ae1878afc06e327920b510341e9ed8b60fd49c5006048e386f7cd5aa"
+    },
+    "1764137754243": {
+      "events": {},
+      "links": {},
+      "address": "0x5D9693A33738E6582F6BDDf0d17Efd7742B18c57",
+      "transactionHash": "0xe93d37f3aa6942f9db3306519ce2fc338a6a2d3dcfe368597628fa7fda187790"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2025-11-26T05:00:50.664Z",
+  "updatedAt": "2025-11-26T06:16:07.141Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
