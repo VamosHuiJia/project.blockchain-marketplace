@@ -8,10 +8,10 @@ import { updateNFT, buyNFT } from '../Blockchain.services'
 const UpdateProduct = () => {
     const [modal] = useGlobalState('updateModal')
     const [nft] = useGlobalState('nft')
-    const [price, setPrice] = useState(nft?.cost)
+    const [price, setPrice] = useState(nft?.cost || '')
 
     const handleSubmit = async(e) => {
-        e.preventdefault()
+        e.preventDefault()
 
         if (!price || price <= 0) return
 
