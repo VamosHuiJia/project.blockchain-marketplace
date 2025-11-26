@@ -2,8 +2,6 @@
 
 > 🚀 *Nơi nghệ thuật gặp công nghệ — Mua, bán và sưu tầm các tác phẩm nghệ thuật kỹ thuật số độc nhất bằng NFT.*
 
-## Hiện dự án chưa xong, đang trong giai đoạn thiết kế
-
 ---
 
 ## 📖 Giới thiệu
