@@ -45,7 +45,7 @@ const ProductDetail = () => {
     return (
     <div className={`fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50 transform transition-transform duration-300 
         ${modal}`}>
-        <div className='bg-[#151c25] shadow-xl shadow-[#e32970] rounded-xl w-11/12 md:w-3/5 h-7/12 p-6'>
+        <div className='bg-[#151c25] shadow-xl shadow-[#13533e] rounded-xl w-11/12 md:w-3/5 h-7/12 p-6'>
             <div className='flex flex-col'>
                 <div className='flex justify-between items-center text-gray-400'>
                     <p className='font-semibold'>
@@ -86,7 +86,7 @@ const ProductDetail = () => {
 
                             <div className='flex flex-col justify-center items-start'>
                                 <small className='text-white font-bold'>Người đăng</small>
-                                <small className='text-pink-800 font-semibold'>
+                                <small className='text-green-700 font-semibold'>
                                     {nft?.owner ? truncate(nft.owner, 4, 4, 11) : '...'}
                                 </small>
                             </div>
@@ -103,14 +103,14 @@ const ProductDetail = () => {
                     {connectedAccount?.toLowerCase() !== nft?.owner?.toLowerCase() ? (
                         <button  className="flex justify-center items-center shadow-lg
                             shadow-black text-white w-full text-md font-semibold my-5
-                            bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-5"
+                            bg-[#13533e] hover:bg-[#15806c] cursor-pointer rounded-full py-2 px-5"
                             onClick={handleNFTPurchase}>
                             Mua sản phẩm
                         </button>
                     ) : (
                         <button  className="flex justify-center items-center shadow-lg  
                             shadow-black text-white w-full text-md font-semibold my-5
-                            bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-5"
+                            bg-[#13533e] hover:bg-[#15806c] cursor-pointer rounded-full py-2 px-5"
                             onClick={onChangePrice}>
                             Cập nhật giá
                         </button>

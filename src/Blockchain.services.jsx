@@ -1,9 +1,8 @@
-// Blockchain.services.jsx (FIX MetaMask no longer injects window.web3)
 import Web3 from 'web3'
 import { setGlobalState, setAlert, getGlobalState } from './store'
 import abi from './abis/hqnNFT.json'
 
-let web3 = null // singleton
+let web3 = null 
 let listenersBound = false
 
 // Tránh đổi tài khoản bị "dẫm lên nhau"
@@ -12,25 +11,20 @@ const bindWalletListenersOnce = () => {
   listenersBound = true
 
   window.ethereum.on('chainChanged', () => {
-    // chuyển chain thì reload là dễ nhất
     window.location.reload()
   })
 
   window.ethereum.on('accountsChanged', async (newAccounts) => {
     const acc = (newAccounts && newAccounts[0]) ? newAccounts[0].toLowerCase() : ''
     setGlobalState('connectedAccount', acc)
-    // Sau khi đổi tài khoản, refresh danh sách; bọc try/catch để không văng lỗi
     try {
       await getAllNFTs()
     } catch (e) {
-      // nuốt lỗi để UI không crash
       console.warn('getAllNFTs failed after accountsChanged:', e?.message || e)
     }
   })
 }
 
-
-// 1) Buộc MetaMask sang Ganache 8545 (chainId 1337 = 0x539)
 
 const ensureLocalChain = async () => {
   if (!window.ethereum) throw new Error('Vui lòng cài MetaMask.')
@@ -57,7 +51,7 @@ const ensureLocalChain = async () => {
   }
 }
 
-// 2) Khởi tạo Web3 đúng cách (không dùng window.web3)
+// 2) Khởi tạo Web3 
 const ensureWeb3 = async () => {
   if (!window.ethereum) reportError('Vui lòng cài đặt MetaMask hoặc cung cấp provider.')
   // đảm bảo đúng chain trước
@@ -68,7 +62,7 @@ const ensureWeb3 = async () => {
   return web3
 }
 
-// 3) Lấy instance contract theo networkId (Ganache thường là 5777)
+// 3) Lấy instance contract 
 const getEthereumContract = async () => {
   const w3 = await ensureWeb3()
   const networkId = await w3.eth.net.getId()

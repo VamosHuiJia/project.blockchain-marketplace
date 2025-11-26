@@ -28,15 +28,15 @@ const Community = () => {
             <div className="flex flex-wrap items-center gap-4 mt-5">
               <a
                 href="#"
-                className="inline-flex items-center shadow-xl shadow-black bg-[#e32970]
-                           hover:bg-[#bd255f] rounded-full px-6 py-2 text-sm font-semibold"
+                className="inline-flex items-center shadow-xl shadow-black bg-[#13533e] hover:bg-[#15806c]
+                 rounded-full px-6 py-2 text-sm font-semibold"
               >
                 Tham gia Discord
                 <FiArrowRight className="ml-2" />
               </a>
               <a
                 href="#"
-                className="inline-flex items-center text-sm text-gray-300 hover:text-pink-400"
+                className="inline-flex items-center text-sm text-gray-300 hover:text-green-600"
               >
                 <FiGithub className="mr-2" />
                 Xem source code & tài liệu
@@ -46,19 +46,19 @@ const Community = () => {
 
           {/* Stats */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-[#151c25] border border-pink-500/40 rounded-xl p-4 shadow-xl shadow-black">
+            <div className="bg-[#151c25] border border-green-500/40 rounded-xl p-4 shadow-xl shadow-black">
               <p className="text-2xl font-bold">1.2k+</p>
               <p className="text-gray-300 text-sm mt-1">Thành viên cộng đồng</p>
             </div>
-            <div className="bg-[#151c25] border border-pink-500/40 rounded-xl p-4 shadow-xl shadow-black">
+            <div className="bg-[#151c25] border border-green-500/40 rounded-xl p-4 shadow-xl shadow-black">
               <p className="text-2xl font-bold">300+</p>
               <p className="text-gray-300 text-sm mt-1">NFT được chia sẻ</p>
             </div>
-            <div className="bg-[#151c25] border border-pink-500/40 rounded-xl p-4 shadow-xl shadow-black">
+            <div className="bg-[#151c25] border border-green-500/40 rounded-xl p-4 shadow-xl shadow-black">
               <p className="text-2xl font-bold">50+</p>
               <p className="text-gray-300 text-sm mt-1">Tác giả đang hoạt động</p>
             </div>
-            <div className="bg-[#151c25] border border-pink-500/40 rounded-xl p-4 shadow-xl shadow-black">
+            <div className="bg-[#151c25] border border-green-500/40 rounded-xl p-4 shadow-xl shadow-black">
               <p className="text-2xl font-bold">24/7</p>
               <p className="text-gray-300 text-sm mt-1">Kênh thảo luận & hỗ trợ</p>
             </div>
@@ -67,8 +67,8 @@ const Community = () => {
 
         {/* Hoạt động cộng đồng */}
         <section className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-gray-800/80 rounded-xl border border-pink-500/40 p-5 shadow-xl shadow-black">
-            <FiUsers className="text-3xl text-pink-500 mb-3" />
+          <div className="bg-gray-800/80 rounded-xl border border-green-500/40 p-5 shadow-xl shadow-black">
+            <FiUsers className="text-3xl text-green-600 mb-3" />
             <h5 className="text-lg font-semibold mb-2">Kết nối & networking</h5>
             <p className="text-sm text-gray-300 leading-relaxed">
               Gặp gỡ những người cùng đam mê, trao đổi bộ sưu tập, hợp tác ra mắt bộ NFT mới, 
@@ -76,8 +76,8 @@ const Community = () => {
             </p>
           </div>
 
-          <div className="bg-gray-800/80 rounded-xl border border-pink-500/40 p-5 shadow-xl shadow-black">
-            <FiMessageCircle className="text-3xl text-pink-500 mb-3" />
+          <div className="bg-gray-800/80 rounded-xl border border-green-500/40 p-5 shadow-xl shadow-black">
+            <FiMessageCircle className="text-3xl text-green-600 mb-3" />
             <h5 className="text-lg font-semibold mb-2">Thảo luận & chia sẻ</h5>
             <p className="text-sm text-gray-300 leading-relaxed">
               Cùng phân tích xu hướng NFT, chia sẻ kinh nghiệm tránh scam, học cách bảo mật ví
@@ -85,8 +85,8 @@ const Community = () => {
             </p>
           </div>
 
-          <div className="bg-gray-800/80 rounded-xl border border-pink-500/40 p-5 shadow-xl shadow-black">
-            <FiAward className="text-3xl text-pink-500 mb-3" />
+          <div className="bg-gray-800/80 rounded-xl border border-green-500/40 p-5 shadow-xl shadow-black">
+            <FiAward className="text-3xl text-green-600 mb-3" />
             <h5 className="text-lg font-semibold mb-2">Sự kiện & vinh danh</h5>
             <p className="text-sm text-gray-300 leading-relaxed">
               Tổ chức mini game, contest vẽ, ra mắt bộ sưu tập mới và vinh danh những tác giả,
@@ -96,9 +96,9 @@ const Community = () => {
         </section>
 
         {/* Góc dành cho người mới */}
-        <section className="mt-10 bg-[#151c25] border border-pink-500/40 rounded-xl p-6 shadow-xl shadow-black">
+        <section className="mt-10 bg-[#151c25] border border-green-500/40 rounded-xl p-6 shadow-xl shadow-black">
           <div className="flex items-center mb-3">
-            <FiHeart className="text-pink-500 text-2xl mr-2" />
+            <FiHeart className="text-green-600 text-2xl mr-2" />
             <h5 className="text-lg md:text-xl font-semibold">
               Mới bắt đầu với NFT? Cộng đồng sẽ hỗ trợ bạn!
             </h5>

@@ -35,7 +35,7 @@ const Transactions = () => {
 
         {collection.length > 0 && transactions.length > collection.length ? (
           <div className='text-center my-5'>
-            <button  className="shadow-lg shadow-black text-white text-sm font-bold bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-lg py-2 px-5"
+            <button  className="shadow-lg shadow-black text-white text-sm font-bold bg-[#13533e] hover:bg-[#15806c] cursor-pointer rounded-lg py-2 px-5"
               onClick={() => setEnd(end + count)}>
                 Xem thêm
             </button>
@@ -48,8 +48,8 @@ const Transactions = () => {
 }
 
 const Transaction = ({ tx }) => (
-  <div className='flex justify-between items-center border border-pink-500 text-gray-400 w-full shadow-xl shadow-black rounded-md overflow-hidden bg-gray-800 my-2 p-3'>
-    <div className='rounded-md shadow-sm shadow-pink-500 p-2 '>
+  <div className='flex justify-between items-center border border-green-700 text-gray-400 w-full shadow-xl shadow-black rounded-md overflow-hidden bg-gray-800 my-2 p-3'>
+    <div className='rounded-md shadow-sm shadow-green-600 p-2 '>
       <BiTransfer />
     </div>
 
@@ -59,7 +59,7 @@ const Transaction = ({ tx }) => (
       </h4>
       <small className='flex justify-start items-center'>
         <span className='mr-1'>Người nhận </span>
-        <a className='text-pink-500 mr-2' href='#' target='_blank'>
+        <a className='text-green-700 mr-2' href='#' target='_blank'>
           {truncate(tx.owner, 4, 4, 11)}
         </a>
         <MdOpenInNew />

@@ -75,7 +75,7 @@ const Card = ({ nft }) => {
         </div>
 
         {/*Xem chi tiết sản phẩm*/}
-        <button  className="shadow-lg shadow-black text-white text-sm bg-[#e32970] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-3"
+        <button  className="shadow-lg shadow-black text-white text-sm bg-[#13533e] hover:bg-[#15806c] cursor-pointer rounded-full py-2 px-3"
             onClick={setNFT}>
           Xem chi tiết
         </button>

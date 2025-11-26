@@ -79,7 +79,7 @@ const CreateProduct = () => {
   return (
     <div className={`fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50 transform transition-transform duration-300 
         ${modal}`}>
-        <div className='bg-[#151c25] shadow-xl shadow-[#e32970] rounded-xl w-11/12 md:w-2/5 h-7/12 p-6'>
+        <div className='bg-[#151c25] shadow-xl shadow-[#13533e] rounded-xl w-11/12 md:w-2/5 h-7/12 p-6'>
             <form className='flex flex-col'
                 onSubmit={handleSubmit}>
                 <div className='flex justify-between items-center text-gray-400'>
@@ -159,7 +159,7 @@ const CreateProduct = () => {
 
                 <button  className="flex justify-center items-center shadow-lg  
                 shadow-black text-white w-full text-md font-bold my-5
-                bg-[#f7005f] hover:bg-[#bd255f] cursor-pointer rounded-full py-2 px-5"
+                bg-[#13533e] hover:bg-[#15806c] cursor-pointer rounded-full py-2 px-5"
                 type="submit"
                 onClick={handleSubmit}
                 >

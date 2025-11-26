@@ -25,7 +25,7 @@ const Hero = () => {
             </div>
 
             <div>
-              <button className='shadow-xl shadow-black text-white bg-[#e32970] hover:bg-[#bd255f] font-semibold rounded-full cursor-pointer py-3 px-5 mt-3'
+              <button className='shadow-xl shadow-black text-white bg-[#13533e] hover:bg-[#15806c] font-semibold rounded-full cursor-pointer py-3 px-5 mt-3'
                 onClick={() => setGlobalState('modal', 'scale-100')}>
                 Thêm sản phẩm
               </button>
@@ -65,7 +65,7 @@ const Hero = () => {
                 ? truncate(connectedAccount, 4, 4, 11)
                 : 'Connect Your Wallet'}
             </p>
-            <small className="text-pink-800 font-bold">@you</small>
+            <small className="text-green-700 font-bold">@you</small>
           </div>
         </div>
       </div>

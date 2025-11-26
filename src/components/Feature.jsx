@@ -62,10 +62,10 @@ const Feature = () => {
             <div
               key={item.id}
               className="w-full h-full bg-gray-800/80 backdrop-blur rounded-xl shadow-xl shadow-black
-                         border border-pink-500/40 p-5 text-white
-                         hover:scale-105 hover:border-pink-500 transition-transform duration-300"
+                         border border-green-500/40 p-5 text-white
+                         hover:scale-105 hover:border-green-700 transition-transform duration-300"
             >
-              <div className="text-pink-500">{item.icon}</div>
+              <div className="text-green-600">{item.icon}</div>
               <h5 className="text-lg font-semibold mb-2">{item.title}</h5>
               <p className="text-gray-300 text-sm leading-relaxed">{item.desc}</p>
             </div>
@@ -80,7 +80,7 @@ const Feature = () => {
             </h5>
             <p className="text-gray-300 text-sm md:text-base leading-relaxed">
               Không chỉ dừng lại ở việc trưng bày tác phẩm, nền tảng còn giúp bạn{" "}
-              <span className="text-pink-400 font-semibold">
+              <span className="text-green-600 font-semibold">
                 quản lý, theo dõi và tối ưu giá trị bộ sưu tập NFT
               </span>{" "}
               theo thời gian. Tính năng được thiết kế hướng tới trải nghiệm đơn giản, rõ ràng
@@ -88,7 +88,7 @@ const Feature = () => {
             </p>
           </div>
 
-          <div className="bg-[#151c25] rounded-xl border border-pink-500/40 p-5 shadow-xl shadow-black">
+          <div className="bg-[#151c25] rounded-xl border border-green-500/40 p-5 shadow-xl shadow-black">
             <h6 className="text-white font-semibold mb-3 text-sm uppercase tracking-wide">
               Trải nghiệm bạn nhận được
             </h6>
