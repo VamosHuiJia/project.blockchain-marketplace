@@ -23,8 +23,12 @@ const Header = () => {
             <li className='mx-2 cursor-pointer'>
               <Link to="/authors">Tác giả</Link>
             </li>
-            <li className='mx-2 cursor-pointer'>Tính năng</li>
-            <li className='mx-2 cursor-pointer'>Cộng đồng</li>
+            <li className="mx-2 cursor-pointer">
+              <Link to="/features">Tính năng</Link>
+            </li>
+            <li className="mx-2 cursor-pointer">
+              <Link to="/community">Cộng đồng</Link>
+            </li>
         </ul>
 
         {connectedAccount ? (
