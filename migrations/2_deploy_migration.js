@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 const hqnNFT = artifacts.require('hqnNFT')
 
-module.exports = async (deployer) => {
-  const accounts = await web3.eth.getAccounts()
+module.exports = async (deployer, network, accounts) => {
+  const artist = accounts[0]
 
-  await deployer.deploy(hqnNFT, 'HQN NFTs', 'TNT', 10, accounts[1])
+  await deployer.deploy(hqnNFT, 'HQN NFTs', 'TNT', 10, artist)
 }

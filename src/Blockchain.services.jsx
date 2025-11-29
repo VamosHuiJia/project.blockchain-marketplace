@@ -5,6 +5,9 @@ import abi from './abis/hqnNFT.json'
 let web3 = null 
 let listenersBound = false
 
+const SEPOLIA_CHAIN_ID_HEX = '0xaa36a7' // 11155111 (Sepolia)
+const FALLBACK_CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS
+
 // Tránh đổi tài khoản bị "dẫm lên nhau"
 const bindWalletListenersOnce = () => {
   if (!window.ethereum || listenersBound) return
@@ -28,7 +31,10 @@ const bindWalletListenersOnce = () => {
 
 const ensureLocalChain = async () => {
   if (!window.ethereum) throw new Error('Vui lòng cài MetaMask.')
-  const targetChainIdHex = '0x539' // 1337 (Ganache)
+
+  // ✅ Sepolia testnet
+  const targetChainIdHex = SEPOLIA_CHAIN_ID_HEX
+
   try {
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
@@ -40,9 +46,9 @@ const ensureLocalChain = async () => {
         method: 'wallet_addEthereumChain',
         params: [{
           chainId: targetChainIdHex,
-          chainName: 'Ganache 8545',
-          rpcUrls: ['http://localhost:8545'],
-          nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+          chainName: 'Sepolia Testnet',
+          rpcUrls: [process.env.REACT_APP_SEPOLIA_RPC || 'https://sepolia.infura.io/v3/YOUR_INFURA_KEY'],
+          nativeCurrency: { name: 'Sepolia ETH', symbol: 'SEP', decimals: 18 },
         }],
       })
     } else {
@@ -51,16 +57,20 @@ const ensureLocalChain = async () => {
   }
 }
 
+
 // 2) Khởi tạo Web3 
 const ensureWeb3 = async () => {
   if (!window.ethereum) reportError('Vui lòng cài đặt MetaMask hoặc cung cấp provider.')
-  // đảm bảo đúng chain trước
+
   const cur = await window.ethereum.request({ method: 'eth_chainId' })
-  if (cur !== '0x539') await ensureLocalChain()
+  if (cur !== SEPOLIA_CHAIN_ID_HEX) {
+    await ensureLocalChain()
+  }
 
   if (!web3) web3 = new Web3(window.ethereum)
   return web3
 }
+
 
 // 3) Lấy instance contract 
 const getEthereumContract = async () => {
@@ -68,12 +78,15 @@ const getEthereumContract = async () => {
   const networkId = await w3.eth.net.getId()
 
   let contractAddress = abi.networks?.[networkId]?.address
-  if (!contractAddress && import.meta?.env?.VITE_CONTRACT_ADDRESS) {
-    contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
+
+  if (!contractAddress && FALLBACK_CONTRACT_ADDRESS) {
+    contractAddress = FALLBACK_CONTRACT_ADDRESS
   }
+
   if (!contractAddress) {
     reportError(`Không tìm thấy địa chỉ contract cho networkId=${networkId}`)
   }
+
   return new w3.eth.Contract(abi.abi, contractAddress)
 }
 
