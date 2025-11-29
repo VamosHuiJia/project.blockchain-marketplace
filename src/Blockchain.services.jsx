@@ -47,7 +47,7 @@ const ensureLocalChain = async () => {
         params: [{
           chainId: targetChainIdHex,
           chainName: 'Sepolia Testnet',
-          rpcUrls: [process.env.REACT_APP_SEPOLIA_RPC || 'https://sepolia.infura.io/v3/YOUR_INFURA_KEY'],
+          rpcUrls: [process.env.REACT_APP_SEPOLIA_RPC || 'https://sepolia.infura.io/v3/3498f96ab2304661a3f3a6e9de2a93c4'],
           nativeCurrency: { name: 'Sepolia ETH', symbol: 'SEP', decimals: 18 },
         }],
       })
