@@ -32,7 +32,7 @@ const bindWalletListenersOnce = () => {
 const ensureLocalChain = async () => {
   if (!window.ethereum) throw new Error('Vui lòng cài MetaMask.')
 
-  // ✅ Sepolia testnet
+  // ;;Sepolia testnet
   const targetChainIdHex = SEPOLIA_CHAIN_ID_HEX
 
   try {
